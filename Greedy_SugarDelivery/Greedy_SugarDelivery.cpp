@@ -1,20 +1,115 @@
-﻿// Greedy_SugarDelivery.cpp : 이 파일에는 'main' 함수가 포함됩니다. 거기서 프로그램 실행이 시작되고 종료됩니다.
-//
+﻿// 내가푼것
 
 #include <iostream>
 
+using namespace std;
+
+class SugarDeliverySystem
+{
+
+private:
+	const int FIVEKG = 5;
+	const int THREEKG = 3;
+	int mTotalWeight;
+	int mResult;
+
+public:
+	SugarDeliverySystem()
+		: mTotalWeight{}, mResult{}
+	{
+
+	}
+	~SugarDeliverySystem()
+	{
+
+	}
+public:
+	void Input()
+	{
+		cin >> mTotalWeight;
+	}
+	// 전체 설탕무게에 대하여 3, 5kg 봉지가지고 최소 봉지 수를 출력
+	void Output()
+	{
+		FirstWay();
+
+	}
+	// 첫번째 방법
+	void FirstWay()
+	{
+		int cnt{ 0 };
+		mResult = mTotalWeight;
+
+		// 무한루프
+		while (true)
+		{
+			// 먼저 5으로 나눈 나머지가 0인지 확인한다.
+			if (mResult % FIVEKG)
+			{
+				// 0이 아니면 일단 3를 뺀 나머지를 뱉어내고 카운트센다.
+				mResult -= THREEKG;
+				cnt++;
+				if (mResult == 0)
+				{
+					cout << cnt;
+					break;
+				}
+				else if (mResult < 0)
+				{
+					cout << -1;
+					break;
+				}
+			}
+			else
+			{
+				// 참이면 5으로 나눈 값 + 카운트센것을 출력한다.
+				cout << mResult / FIVEKG + cnt;
+				break;
+			}
+		}
+	}
+
+};
+
 int main()
 {
-    std::cout << "Hello World!\n";
+	SugarDeliverySystem sds;
+	sds.Input();
+	sds.Output();
 }
 
-// 프로그램 실행: <Ctrl+F5> 또는 [디버그] > [디버깅하지 않고 시작] 메뉴
-// 프로그램 디버그: <F5> 키 또는 [디버그] > [디버깅 시작] 메뉴
+/*
+#include <stdio.h>
+#include <algorithm>
 
-// 시작을 위한 팁: 
-//   1. [솔루션 탐색기] 창을 사용하여 파일을 추가/관리합니다.
-//   2. [팀 탐색기] 창을 사용하여 소스 제어에 연결합니다.
-//   3. [출력] 창을 사용하여 빌드 출력 및 기타 메시지를 확인합니다.
-//   4. [오류 목록] 창을 사용하여 오류를 봅니다.
-//   5. [프로젝트] > [새 항목 추가]로 이동하여 새 코드 파일을 만들거나, [프로젝트] > [기존 항목 추가]로 이동하여 기존 코드 파일을 프로젝트에 추가합니다.
-//   6. 나중에 이 프로젝트를 다시 열려면 [파일] > [열기] > [프로젝트]로 이동하고 .sln 파일을 선택합니다.
+
+using namespace std;
+
+int memo[5002] = { 0, };
+
+int sultang(int s) {
+	if (s < 0) {
+		return 200000000;
+	}
+	if (s == 0) {
+		return 0;
+	}
+	if (memo[s] != 0) {
+		return memo[s];
+	}
+	else {
+		memo[s] = min(sultang(s - 3), sultang(s - 5)) + 1;
+		return memo[s];
+	}
+}
+
+int main() {
+	int s;
+	scanf("%d", &s);
+	int m = sultang(s);
+	if (m >= 200000000) {
+		m = -1;
+	}
+	printf("%d", m);
+}
+*/
