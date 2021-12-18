@@ -33,10 +33,26 @@ public:
     }
     void Output()
     {
-        Combination(mInput.size(), mInput, mOuput);
+        // Combination(mInput.size(), mInput, mOuput);
     }
 
 private:
+    void Find()
+    {
+        // 30 * 1 ~ 9까지 검사 표본 준비
+        for (int i = 1; i <= 9; i++)
+        {
+
+        }
+        // 앞자리가 큰 순서대로 쇼트
+        
+        // 한뭉텅 한뭉텅 30이 나누어 떨어지는 숫자를 찾는다
+        for (int i = 0; i < 10; i++)
+        {
+            // 30의 배수의 숫자가 맞는지 검사
+
+        }
+    }
     void Combination(int n, std::list<int> input, std::list<int>& output)
     {
         input.sort(std::greater<int>());
@@ -61,7 +77,7 @@ private:
                     k++;
                 }
                 elem += (std::pow((double)10, (double)n-1) * max);*/
-
+                // string으로 변환
             }
             // 합체
             // output.merge(tmp);
