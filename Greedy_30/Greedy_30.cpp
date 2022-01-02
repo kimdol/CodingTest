@@ -2,13 +2,15 @@
 #include <list>
 #include <algorithm>
 #include <cmath>
+#include <string>
+#include <iterator>
 
 
 class CombiningFindSystem
 {
 
 private:
-    std::list<int> mInput;
+    std::list<char> mInput;
     std::list<int> mOuput;
     int mResult;
 
@@ -28,15 +30,39 @@ public:
             {
                 break;
             }
-            mInput.push_back(static_cast<int>(input - 48));
+            mInput.push_back(input);
         }
     }
     void Output()
     {
         // Combination(mInput.size(), mInput, mOuput);
+        Find30();
+        std::cout << mResult << std::endl;
     }
 
 private:
+    void Find30()
+    {
+        mInput.sort(std::greater<int>());
+
+        if (std::find(mInput.begin(), mInput.end(), '0') == mInput.end())
+        {
+            return;
+        }
+        // 숫자 다 더한 값이 3의 배수이면 참
+        int sum{ 0 };
+        for (auto& elem : mInput)
+        {
+            sum += (elem - '0');
+        }
+        if (sum % 3 == 0)
+        {
+            std::string result( mInput.begin(), mInput.end() );
+            mResult = std::stoi(result);
+        }
+
+        return;
+    }
     void Find()
     {
         // 30 * 1 ~ 9까지 검사 표본 준비
