@@ -3,7 +3,6 @@
 #include <algorithm>
 #include <cmath>
 #include <string>
-#include <iterator>
 
 
 class CombiningFindSystem
@@ -16,7 +15,7 @@ private:
 
 public:
     CombiningFindSystem()
-        : mInput{}, mResult { 0 }
+        : mInput{}, mResult { -1 }
     {}
 
 public:
@@ -57,11 +56,10 @@ private:
         }
         if (sum % 3 == 0)
         {
+            std::cout << "asdf";
             std::string result( mInput.begin(), mInput.end() );
             mResult = std::stoi(result);
         }
-
-        return;
     }
     void Find()
     {
