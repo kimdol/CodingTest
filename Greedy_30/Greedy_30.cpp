@@ -56,7 +56,6 @@ private:
         }
         if (sum % 3 == 0)
         {
-            std::cout << "asdf";
             std::string result( mInput.begin(), mInput.end() );
             mResult = std::stoi(result);
         }
