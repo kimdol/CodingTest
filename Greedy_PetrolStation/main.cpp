@@ -96,21 +96,28 @@ int main()
     int n{};
     std::vector<int> vPrices{}, vDistances{};
     cost_history h;
-    int x{ 1000 }, y{ 1000 };
-    auto dh = std::make_unique<long long[]>(x*y);
+    //int x{ 1000 }, y{ 1000 };
+    //auto dh = std::make_unique<long long[]>(x*y);
 
     Input(n, vPrices, vDistances);
     totalDist = n;
 
-    std::vector<int>::iterator it{ vDistances.begin()};
-    for (int i = 0; i < n; i++)
+    /*
+    std::vector<int>::iterator it{ vDistances.begin() };
+    for (int i = 0; i < (n - 1); i++)
     {
-        for (int k = 0; k < (n - i); k++)
+        for (int k = 0; k < ((n - 1) - i); k++)
         {
-            dh[i*x+k] = std::accumulate(it + i, it + k + i, static_cast<long long> (*(it + i)));
+           // std::vector<int> tmp{ vDistances.begin() + 2, vDistances.begin() + 2 };
+           // dh[i*x+k] = std::accumulate(it + i, it + k + i, static_cast<long long>(vDistances[i]));
+            for (int j = 0; j < k; j++)
+            {
+
+            }
             std::cout << '[' << i << ']' << '[' << k << ']' << dh[i * x + k] << std::endl;
         }
     }
+    */
 
     std::cout << FindCost(totalDist - 1, n-1, vPrices, vDistances, h) << std::endl;
 
