@@ -1,7 +1,10 @@
 #include <iostream>
 #include <vector>
+#include <map>
 #include <algorithm>
 #include <string>
+#include <numeric>
+#include <memory>
 
 std::istream& operator >> (std::istream& is, std::vector<int>& v)
 {
@@ -39,54 +42,77 @@ void Input(int& n, std::vector<int>& prices, std::vector<int>& distances)
     */
     std::cin >> n;
 
+    for (int i = 0; i < n - 1; i++)
+    {
+        std::cin >> distances;
+    }
+
     for (int i = 0; i < n; i++)
     {
         std::cin >> prices;
     }
 
-    for (int i = 0; i < n-1; i++)
-    {
-        std::cin >> distances;
-    }
 }
 
-int FindCost(int n, const std::vector<int> prices, const std::vector<int> distances)
+using cost_history = std::map<int, long long>;
+long long FindCost(const int& total, int n, const std::vector<int>& prices, const std::vector<int>& distances, cost_history& h)
 {
+    if (h.count(n) == 1)
+    {
+        return h[n];
+    }
+
     // base case
     if (n <= 0)
     {
         return 0;
     }
 
-    int min{};
-    int ret{};
+    long long min{};
+    long long ret{};
 
     for (int i = 1; i <= n; i++)
     {
-        int distanceSum{ 0 };
-        for (int k = 0; k < i; k++)
-        {
-            distanceSum += distances[k];
-        }
-        ret = FindCost(n - i, prices, distances) + distanceSum;
-        if (i == 0 && min > ret)
+        std::vector<int>::const_iterator it{ distances.begin() + (total - n) };
+        long long distanceSum{ std::accumulate(it, it + i, 0LL) };
+
+        ret = FindCost(total, n - i, prices, distances, h) + (prices[total - n] * distanceSum);
+        if (i == 1 || min > ret)
         {
             min = ret;
         }
     }
 
-    return min;
+    h[n] = min;
+
+    return h[n];
 
 }
 
 
 int main()
 {
+    int totalDist{};
     int n{};
     std::vector<int> vPrices{}, vDistances{};
+    cost_history h;
+    int x{ 1000 }, y{ 1000 };
+    auto dh = std::make_unique<long long[]>(x*y);
 
     Input(n, vPrices, vDistances);
-    std::cout << FindCost(n, vPrices, vDistances) << std::endl;
+    totalDist = n;
+
+    std::vector<int>::iterator it{ vDistances.begin()};
+    for (int i = 0; i < n; i++)
+    {
+        for (int k = 0; k < (n - i); k++)
+        {
+            dh[i*x+k] = std::accumulate(it + i, it + k + i, static_cast<long long> (*(it + i)));
+            std::cout << '[' << i << ']' << '[' << k << ']' << dh[i * x + k] << std::endl;
+        }
+    }
+
+    std::cout << FindCost(totalDist - 1, n-1, vPrices, vDistances, h) << std::endl;
 
     return 0;
 }
