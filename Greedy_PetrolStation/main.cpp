@@ -5,6 +5,7 @@
 #include <string>
 #include <numeric>
 #include <array>
+#include <memory>
 
 void Input(int& n, std::vector<int>& prices, std::vector<int>& distances)
 {
@@ -25,11 +26,19 @@ void Input(int& n, std::vector<int>& prices, std::vector<int>& distances)
 }
 
 using cost_history = std::map<long long, long long>;
-long long FindCost(const int& total, int n, const std::vector<int>& prices, const std::vector<int>& distances, cost_history& h)
+using distances_sum_ptr = std::shared_ptr<std::vector<std::vector<long long>>>;
+long long FindCost(const int& total, int n, const std::vector<int>& prices, const std::vector<int>& distances, cost_history& h, distances_sum_ptr& dsp)
 {
+    // base case
+    if (n <= 0)
+    {
+        return 0;
+    }
+
     if (prices[total - n] == 1)
     {
-        h[n] = std::accumulate(distances.begin() + (total - n), distances.end(), 0LL);
+        // h[n] = std::accumulate(distances.begin() + (total - n), distances.end(), 0LL);
+        h[n] = ((*dsp)[total - n])[n - 1];
         return h[n];
     }
 
@@ -38,21 +47,16 @@ long long FindCost(const int& total, int n, const std::vector<int>& prices, cons
         return h[n];
     }
 
-    // base case
-    if (n <= 0)
-    {
-        return 0;
-    }
-
     long long min{};
     long long ret{};
 
     for (int i = 1; i <= n; i++)
     {
-        std::vector<int>::const_iterator it{ distances.begin() + (total - n) };
-        long long distanceSum{ std::accumulate(it, it + i, 0LL) };
+        // std::vector<int>::const_iterator it{ distances.begin() + (total - n) };
+        // long long distanceSum{ std::accumulate(it, it + i, 0LL) };
+        long long distanceSum{ ((*dsp)[total - n])[i - 1] };
 
-        ret = FindCost(total, n - i, prices, distances, h) + (prices[total - n] * distanceSum);
+        ret = FindCost(total, n - i, prices, distances, h, dsp) + (prices[total - n] * distanceSum);
         if (i == 1 || min > ret)
         {
             min = ret;
@@ -75,15 +79,15 @@ int main()
     Input(n, vPrices, vDistances);
     totalDist = n;
 
-    auto dsp = std::make_shared<std::array<std::vector<long long>, 100000>>();
-    // long long a = ((*dsp)[3])[0];
+    auto dsp = std::make_shared<std::vector<std::vector<long long>>>(n-1);
 
     for (int i = 0; i < n - 1; i++)
     {
+        ((*dsp)[i]).resize((n-1) - i);
         std::partial_sum(vDistances.begin() + i, vDistances.end(), ((*dsp)[i]).begin());
     }
 
-    std::cout << FindCost(totalDist - 1, n-1, vPrices, vDistances, h) << std::endl;
+    std::cout << FindCost(totalDist - 1, n-1, vPrices, vDistances, h, dsp) << std::endl;
 
     return 0;
 }
