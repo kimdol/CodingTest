@@ -25,9 +25,9 @@ void Input(int& n, std::vector<int>& prices, std::vector<int>& distances)
 
 }
 
-using cost_history = std::map<long long, long long>;
-using distances_sum_ptr = std::shared_ptr<std::vector<std::vector<long long>>>;
-long long FindCost(const int& total, int n, const std::vector<int>& prices, const std::vector<int>& distances, cost_history& h, distances_sum_ptr& dsp)
+using cost_history = std::map<int, int>;
+using distances_sum_ptr = std::shared_ptr<std::vector<std::vector<int>>>;
+int FindCost(const int& total, int n, const std::vector<int>& prices, const std::vector<int>& distances, cost_history& h, distances_sum_ptr& dsp)
 {
     // base case
     if (n <= 0)
@@ -35,15 +35,15 @@ long long FindCost(const int& total, int n, const std::vector<int>& prices, cons
         return 0;
     }
 
+    if (h.count(n) == 1)
+    {
+        return h[n];
+    }
+
     if (prices[total - n] == 1)
     {
         // h[n] = std::accumulate(distances.begin() + (total - n), distances.end(), 0LL);
         h[n] = ((*dsp)[total - n])[n - 1];
-        return h[n];
-    }
-
-    if (h.count(n) == 1)
-    {
         return h[n];
     }
 
@@ -79,7 +79,7 @@ int main()
     Input(n, vPrices, vDistances);
     totalDist = n;
 
-    auto dsp = std::make_shared<std::vector<std::vector<long long>>>(n-1);
+    auto dsp = std::make_shared<std::vector<std::vector<int>>>(n-1);
 
     for (int i = 0; i < n - 1; i++)
     {
@@ -91,6 +91,38 @@ int main()
 
     return 0;
 }
+/*
+#include<iostream>
+#include<vector>
+#include<algorithm>
+using namespace std;
+
+int main() {
+    int N;
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+    long long sum = 0, t, minprice = 0;
+    vector<long long> distance;
+    vector<long long> price;
+    cin >> N;
+    for (int i = 0; i < N - 1; i++) {
+        cin >> t;
+        distance.push_back(t);
+    }
+    for (int i = 0; i < N; i++) {
+        cin >> t;
+        price.push_back(t);
+    }
+    minprice = price[0];
+    sum += minprice * distance[0];
+    for (int i = 1; i < N - 1; i++) {
+        minprice = min(minprice, price[i]);
+        sum += minprice * distance[i];
+    }
+    cout << sum;
+}
+*/
 /*
 long long UpFindCost(long long cnt, long long sum, const std::vector<int>& prices, const std::vector<int>& distances, cost_history& h)
 {
