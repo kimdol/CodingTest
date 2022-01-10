@@ -18,15 +18,27 @@ int main()
 
     /*****************핵심********************/
     std::vector<std::string> ans{};
-    for (int i = 0; i < r; i++)
+    int j{};
+    (r % 2) ? j = r : j = c;    // j = r : 가로부터, j = c : 세로부터
+    int cntMax{};
+    (r % 2) ? cntMax = c : cntMax = r;
+    for (int i = 0; i < j; i++)
     {
         int cnt{ 1 };
         std::string mv{};
-        while (cnt++ < c)
+        while (cnt++ < cntMax)
         {
-            (i % 2) ? (mv +="L") : (mv += "R");
+            if (j == r)
+            {
+                (i % 2) ? (mv += "L") : (mv += "R");
+            }
+            else if (j == c)
+            {
+                (i % 2) ? (mv += "U") : (mv += "D");
+            }
+            
         }
-        (i == r - 1) ? (mv) : (mv += "D");
+        (i == j - 1) ? (mv) : ((j == r) ? (mv += "D") : (mv += "R"));
 
 
         ans.push_back(mv);
