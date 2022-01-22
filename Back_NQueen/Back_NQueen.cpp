@@ -37,7 +37,6 @@ void nqueen(int cdx) {
 }
 
 int main() {
-	std::make_pair(1, 1);
 	std::cin >> n;
 	nqueen(0);
 	printf("%d", count);
