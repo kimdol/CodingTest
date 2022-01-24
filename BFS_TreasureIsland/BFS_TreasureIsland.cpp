@@ -34,9 +34,9 @@ void BFS(int init_x, int init_y) {
 
 			if (arr[nx][ny] == 1 && !visit[nx][ny]) {
 				visit[nx][ny] = true;
-				que.push(make_pair(nx, ny));
 				sum[nx][ny] = sum[x][y] + 1;
 				max_num = max(max_num, sum[nx][ny]);
+				que.push(make_pair(nx, ny));
 			}
 		}
 	}
@@ -55,7 +55,10 @@ int main() {
 	for (int i = 0; i < N; i++) {
 		for (int j = 0; j < M; j++) {
 			cin >> temp;
-			if (temp == 'L') arr[i][j] = 1;
+			if (temp == 'L')
+			{
+				arr[i][j] = 1;
+			}
 		}
 	}
 
