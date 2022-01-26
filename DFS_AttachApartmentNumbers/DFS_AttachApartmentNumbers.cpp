@@ -9,6 +9,11 @@ std::vector<int> dxdy(4);
 std::vector<int> ans{};
 int ansCnt{};
 
+bool IsInside(int ny, int nx)
+{
+    return (0 <= nx && N > nx && 0 <= ny && N > ny);
+}
+
 void DFS(int n)
 {
     vi[n] = true;
@@ -17,7 +22,7 @@ void DFS(int n)
     for (int i = 0; i < 4; i++)
     {
         int newN = n + dxdy[i];
-        if (!vi[newN] || arr[newN/N][newN%N] == '1')
+        if (IsInside(newN/N, newN%N) && !vi[newN] && arr[newN / N][newN % N] == '1')
         {
             DFS(newN);
         }
@@ -45,14 +50,14 @@ int main()
             int newN = i * N + k;
             if (arr[i][k] == '1' && !vi[newN])
             {
-                ans.resize(ansCnt++);
+                ans.resize(++ansCnt);
                 std::fill(vi.begin(), vi.end(), false);
                 DFS(newN);
             }
         }
     }
     // 출력
-    std::cout << ans.size();
+    std::cout << ans.size() << std::endl;
     for (auto e : ans)
     {
         std::cout << e << std::endl;
