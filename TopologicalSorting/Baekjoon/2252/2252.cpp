@@ -4,26 +4,49 @@
 
 int main()
 {
+    int N, M;
+    std::cin >> N >> M;
+
+
     std::queue<int> q;
-    std::vector<std::vector<int>> v(10, std::vector<int>(10));
-    int check[10]{};
+    std::vector<std::vector<int>> node(N + 1);
+    std::vector<int> entry(N + 1, 0);
+    for (int i = 0; i < M; i++)
+    {
+        int a, b; 
+        std::cin >> a >> b;
+        entry[b]++;
+        node[a].push_back(b);
+    }
+
+
+    for (int i = 1; i <= N; i++)
+    {
+        if (entry[i] == 0)
+        {
+            q.push(i);
+        }
+    }
+
 
     while (!q.empty())
     {
-        int start = q.front();
+        int cur = q.front();
         q.pop();
 
-        std::cout << start << " ";
+        std::cout << cur << " ";
         
-        for (auto e : v[start])
+        for (auto e : node[cur])
         {
-            check[e]--;
+            entry[e]--;
 
-            if (check[e] == 0)
+            if (entry[e] == 0)
             {
                 q.push(e);
             }
         }
     }
+
+    std::cout << std::endl;
 
 }
