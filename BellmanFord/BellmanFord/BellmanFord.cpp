@@ -38,6 +38,7 @@ int main() {
     dist[1] = 0;
     for (i = 1; i < n; i++) 
     {
+        printf("%d : %d     ", 1, dist[1]);
         for (j = 0; j < Ed.size(); j++) 
         {
             int s = Ed[j].s;
@@ -47,7 +48,10 @@ int main() {
             {
                 dist[e] = dist[s] + w;
             }
+            printf("%d -> %d : %d     ", s, e, dist[e]);
         }
+
+        printf("\n");
     }
 
     for (j = 0; j < Ed.size(); j++) 
