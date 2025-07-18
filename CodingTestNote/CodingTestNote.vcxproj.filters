@@ -20,10 +20,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="note1_quest.h">
+    <ClInclude Include="note1.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="note_WallAndPoison.h">
+    <ClInclude Include="note2.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

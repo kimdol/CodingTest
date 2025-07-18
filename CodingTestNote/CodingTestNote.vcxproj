@@ -130,8 +130,8 @@
     <ClCompile Include="CodingTestNote.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="note1_quest.h" />
-    <ClInclude Include="note_WallAndPoison.h" />
+    <ClInclude Include="note1.h" />
+    <ClInclude Include="note2.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
