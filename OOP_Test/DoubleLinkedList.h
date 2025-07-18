@@ -5,11 +5,11 @@
 
 interface List
 {
-	virtual Monster* CreateMonster(std::string name, int hp) = 0; // Tail ╧ФгБю╦╥н Monster ╣╔юлем╦╕ цъ╟║го╢б гт╪Жют╢о╢ы.
-	virtual void PrintMonsters() = 0; // List╦╕ ╪Ьх╦го╦И╪╜ Monster ╣╔юлем╣Ию╩ цБ╥бго╢б гт╪Жют╢о╢ы.
-	virtual Monster* FindMonster(std::string name) = 0; // List╦╕ ╪Ьх╦го╦И╪╜ ©Ьго╢б Monster ╣╔юлем╦╕ цё╢б гт╪Жют╢о╢ы.
-	virtual void DeleteAll() = 0; // List╦╕ ╪Ьх╦гь╪╜ ╦П╣Г Monster ╣╔юлем╣Ию╩ ╩Ха╕го╢б гт╪Жют╢о╢ы.
-	virtual bool Delete(std::string name) = 0; // ©Ьго╢б Monster ╣╔юлем 1╟Ё╦╕ ╩Ха╕го╢б гт╪Жют╢о╢ы.
+	virtual Monster* CreateMonster(std::string name, int hp) = 0; // Tail О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫ Monster О©╫О©╫О©╫О©╫О©╫м╦О©╫ О©╫ъ╟О©╫О©╫о╢О©╫ О©╫т╪О©╫О©╫т╢о╢О©╫.
+	virtual void PrintMonsters() = 0; // ListО©╫О©╫ О©╫О©╫х╦О©╫о╦И╪╜ Monster О©╫О©╫О©╫О©╫О©╫м╣О©╫О©╫О©╫ О©╫О©╫О©╫О©╫о╢О©╫ О©╫т╪О©╫О©╫т╢о╢О©╫.
+	virtual Monster* FindMonster(std::string name) = 0; // ListО©╫О©╫ О©╫О©╫х╦О©╫о╦И╪╜ О©╫О©╫О©╫о╢О©╫ Monster О©╫О©╫О©╫О©╫О©╫м╦О©╫ цёО©╫О©╫ О©╫т╪О©╫О©╫т╢о╢О©╫.
+	virtual void DeleteAll() = 0; // ListО©╫О©╫ О©╫О©╫х╦О©╫ь╪О©╫ О©╫О©╫О©╫ Monster О©╫О©╫О©╫О©╫О©╫м╣О©╫О©╫О©╫ О©╫О©╫О©╫О©╫О©╫о╢О©╫ О©╫т╪О©╫О©╫т╢о╢О©╫.
+	virtual bool Delete(std::string name) = 0; // О©╫О©╫О©╫о╢О©╫ Monster О©╫О©╫О©╫О©╫О©╫О©╫ 1О©╫О©╫О©╫О©╫ О©╫О©╫О©╫О©╫О©╫о╢О©╫ О©╫т╪О©╫О©╫т╢о╢О©╫.
 
 protected:
 	~List() = default;
